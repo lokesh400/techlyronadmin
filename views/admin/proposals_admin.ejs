@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Proposals - Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <%- include('../partials/sidebar') %>
+  <div class="content">
+    <%- include('../partials/header', { admin: admin }) %>
+    <div class="container-fluid mt-4">
+      <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 mb-3">
+        <h3>Proposals</h3>
+        <a href="/admin/proposals/create" class="btn btn-primary">Create Proposal</a>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th>Lead</th>
+              <th>Status</th>
+              <th>Sent At</th>
+              <th>Sent By</th>
+              <th>Sent To</th>
+              <th>Services</th>
+              <th>Accepted At</th>
+              <th>Rejected At</th>
+              <th>Created At</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% proposals.forEach(function(p){ %>
+              <tr>
+                <td><%= p.lead ? p.lead.name : '—' %></td>
+                <td><%= p.status %></td>
+                <td><%= p.sentAt ? new Date(p.sentAt).toLocaleString() : '-' %></td>
+                <td><%= p.sentBy ? (p.sentBy.name || p.sentBy.email) : '-' %></td>
+                <td><%= p.sentToEmail || '-' %></td>
+                <td><%= p.lead && p.lead.services && p.lead.services.length > 0 ? p.lead.services.join(', ') : '-' %></td>
+                <td><%= p.acceptedAt ? new Date(p.acceptedAt).toLocaleString() : '-' %></td>
+                <td><%= p.rejectedAt ? new Date(p.rejectedAt).toLocaleString() : '-' %></td>
+                <td><%= p.createdAt ? new Date(p.createdAt).toLocaleString() : '-' %></td>
+                <td>
+                  <a href="/admin/proposals/<%= p._id %>" class="btn btn-sm btn-info">View</a>
+                  <% if (p.lead && !p.sent) { %>
+                    <a href="/admin/proposals/send/<%= p.lead._id %>" class="btn btn-sm btn-outline-primary ms-1">Send</a>
+                  <% } %>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

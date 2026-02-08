@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Techlyron | Project Proposal</title>
+</head>
+<body class="bg-gray-100 p-6 sm:p-10">
+<% const leadData = typeof lead !== 'undefined' ? lead : (proposal && proposal.lead ? proposal.lead : null); %>
+<% const proposalData = typeof proposal !== 'undefined' ? proposal : null; %>
+<% const publicMode = typeof isPublic !== 'undefined' ? isPublic : false; %>
+<% const alreadySent = proposalData && proposalData.sent; %>
+
+<div class="max-w-4xl mx-auto bg-white p-8 sm:p-12 shadow">
+  <!-- HEADER -->
+  <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+    <div>
+      <h1 class="text-3xl font-bold tracking-wide">TECHLYRON TECH SOLUTIONS</h1>
+      <p class="text-gray-600 mt-1">Official Project Proposal</p>
+    </div>
+    <div class="flex flex-col items-start gap-2">
+      <% if (!publicMode) { %>
+        <% if (leadData && leadData._id && !alreadySent) { %>
+          <a href="/admin/proposals/send/<%= leadData._id %>" class="inline-flex items-center justify-center rounded bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700">Send Proposal</a>
+        <% } else if (leadData && leadData._id && alreadySent) { %>
+          <span class="text-xs text-gray-500">Proposal already sent.</span>
+        <% } else { %>
+          <button class="inline-flex items-center justify-center rounded bg-gray-400 px-4 py-2 text-sm font-semibold text-white" disabled>Send Proposal</button>
+        <% } %>
+        <span class="text-xs text-gray-500">Editing disabled on preview.</span>
+      <% } %>
+    </div>
+  </div>
+
+  <!-- CLIENT DETAILS -->
+  <div class="mb-6">
+    <p><strong>Client Name:</strong> <%= leadData ? leadData.name : '' %></p>
+    <p><strong>Business Name:</strong> <%= leadData ? leadData.businessName : '' %></p>
+  </div>
+
+  <hr class="my-8">
+
+  <!-- INTRODUCTION -->
+  <h2 class="text-lg font-semibold mb-2">1. Introduction</h2>
+  <p class="leading-relaxed mb-6">
+    Techlyron Tech Solutions is a professional technology services firm
+    engaged in the design, development, and delivery of digital solutions
+    including web applications, mobile applications, and digital platforms.
+    <br><br>
+    This proposal has been prepared to formally outline the scope of services,
+    commercial terms, and conditions under which Techlyron Tech Solutions
+    shall provide services to the client.
+  </p>
+
+  <!-- SCOPE -->
+  <h2 class="text-lg font-semibold mb-2">2. Scope of Services</h2>
+  <p class="mb-3">
+    Techlyron Tech Solutions agrees to provide the following services
+    as part of this engagement:
+  </p>
+
+  <ul class="list-disc ml-6 mb-6">
+    <% if (leadData && leadData.services && leadData.services.length > 0) { %>
+      <% leadData.services.forEach(service => { %>
+        <li><%= service %></li>
+      <% }) %>
+    <% } %>
+  </ul>
+
+  <p class="mb-6">
+    Any services, features, or modifications not explicitly mentioned above
+    shall be considered outside the scope of this proposal and may require
+    a separate commercial agreement.
+  </p>
+
+  <!-- TIMELINE -->
+  <h2 class="text-lg font-semibold mb-2">3. Project Timeline</h2>
+  <p class="mb-6">
+    The estimated project execution timeline is
+    <strong>approximately 30 working days</strong>.
+    The timeline is subject to timely approvals, feedback,
+    and content or information provided by the client.
+  </p>
+
+  <!-- COMMERCIALS -->
+  <h2 class="text-lg font-semibold mb-2">4. Commercial Terms & Payment Schedule</h2>
+
+  <p class="mb-6 leading-relaxed">
+    The payment schedule shall be as follows:
+    <br><br>
+    • <strong>20% advance payment</strong> payable upon acceptance of this proposal
+    and prior to commencement of work.
+    <br>
+    • <strong>Remaining 80%</strong> payable after successful project demonstration
+    and <strong>before the project is made live or deployed</strong>.
+  </p>
+
+  <!-- TERMS -->
+  <h2 class="text-lg font-semibold mb-2">5. Terms & Conditions</h2>
+  <ul class="list-disc ml-6 mb-6">
+    <li>The advance payment is strictly non-refundable.</li>
+    <li>Project execution may be paused in the event of delayed payments.</li>
+    <li>Ownership and intellectual property rights shall be transferred to the client only after full and final payment.</li>
+    <li>Any delays caused due to unavailability of inputs or approvals from the client may impact delivery timelines.</li>
+    <li>Post-deployment support shall be limited to minor bug fixes for a limited period.</li>
+  </ul>
+
+  <!-- VALIDITY -->
+  <h2 class="text-lg font-semibold mb-2">6. Proposal Validity</h2>
+  <p class="mb-6">
+    This proposal shall remain valid for a period of
+    <strong>seven (7) days</strong> from the date of issuance,
+    unless extended in writing by Techlyron Tech Solutions.
+  </p>
+
+  <!-- ACCEPTANCE -->
+  <h2 class="text-lg font-semibold mb-2">7. Acceptance</h2>
+  <p class="mb-8 leading-relaxed">
+    Acceptance of this proposal confirms the client’s agreement
+    to the scope of services, commercial terms, and conditions
+    outlined herein and authorizes Techlyron Tech Solutions
+    to initiate the project.
+  </p>
+
+  <hr class="my-10">
+
+  <!-- SIGNATURE -->
+  <div class="flex justify-between mt-8">
+    <div>
+      <p class="font-semibold">For Techlyron Tech Solutions</p>
+      <p>Authorized Signatory</p>
+    </div>
+
+    <div>
+      <p class="font-semibold">For Client</p>
+      <p><%= leadData ? leadData.name : '' %></p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

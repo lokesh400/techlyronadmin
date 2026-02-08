@@ -1,0 +1,18 @@
+<div class="sidebar">
+  <% const actor = typeof admin !== 'undefined' ? admin : (typeof user !== 'undefined' ? user : null); %>
+  <% if (actor && actor.role === 'Admin') { %>
+    <a href="/admin/dashboard">Dashboard</a>
+    <a href="/admin/users">Users</a>
+    <a href="/admin/leads">Leads</a>
+    <a href="/admin/projects">Projects</a>
+    <a href="/admin/register">Register User</a>
+    <a href="/admin/logout">Logout</a>
+  <% } else if (actor && actor.role === 'Worker') { %>
+    <a href="/worker/dashboard">Dashboard</a>
+    <a href="/worker/leads/create">Create Lead</a>
+    <a href="/admin/logout">Logout</a>
+  <% } else { %>
+    <a href="/">Admin Login</a>
+    <a href="/worker/login">Worker Login</a>
+  <% } %>
+</div>

@@ -1,0 +1,9 @@
+<div class="header d-flex justify-content-between align-items-center">
+  <div class="brand">Techlyron Admin Panel</div>
+  <div>
+    <% if (admin) { %>
+      <span class="me-3">Signed in as <strong><%= admin.username %></strong> (<%= admin.role %>)</span>
+      <a href="/admin/logout" class="btn btn-sm btn-outline-danger">Logout</a>
+    <% } %>
+  </div>
+</div>
